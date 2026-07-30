@@ -3,6 +3,7 @@
 .gitignore
 .assetsignore
 wrangler.jsonc
+README.md
 _tools
 _to_delete
 _respaldo-html-antes-telefono
