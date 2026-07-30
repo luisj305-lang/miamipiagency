@@ -1,0 +1,349 @@
+/* Reparación: el JS de Avada no vino en la copia. Estas reglas suplen lo que hacía. */
+[data-animationtype],.fusion-animated,.fusion-builder-row,.fusion-layout-column,
+.fusion-column-wrapper,.fusion-text,.fusion-title,.fusion-builder-column{
+  visibility:visible !important;opacity:1 !important;
+  animation:none !important;transform:none !important}
+.fusion-carousel,.fusion-carousel-wrapper,.swiper-wrapper{
+  display:flex !important;flex-wrap:wrap !important;gap:18px;transform:none !important;
+  width:auto !important;height:auto !important}
+.swiper-slide,.fusion-carousel-item{width:auto !important;flex:0 1 200px;height:auto !important}
+.fusion-carousel-nav,.swiper-button-next,.swiper-button-prev,.fusion-slider-loading{display:none !important}
+/* cabecera de página interior: el overlay oscuro quedó sin imagen debajo */
+.fusion-fullwidth.fusion-builder-row-2{
+  background-image:url(../2024/04/banner-interior.jpg);
+  background-size:cover;background-position:center center;background-repeat:no-repeat}
+/* cabecera de página interior */
+.fusion-page-title-bar,.fusion-title-bar{
+  background-image:url(../2024/04/banner-interior.jpg) !important;
+  background-size:cover !important;background-position:center !important}
+/* menú: el desplegable funciona por hover y por el shim */
+@media(min-width:801px){.awb-menu__sub-ul{display:none}
+  .awb-menu li:hover>.awb-menu__sub-ul{display:block}}
+@media(max-width:800px){
+  .awb-menu__main-ul{display:none}
+  .awb-menu_open .awb-menu__main-ul,.awb-menu__main-ul.awb-menu_open{display:block !important}
+  .awb-menu__sub-ul{position:static !important;display:none}
+  .awb-menu__li_open>.awb-menu__sub-ul{display:block !important}}
+/* nada de huecos vacíos donde había vídeo */
+.fusion-bg-parallax,.fusion-video-background{min-height:0}
+img[src^="data:image/svg"]{display:none}
+/* formulario: el CSS de WPForms tampoco vino en la copia */
+.wpforms-container input[type=text],.wpforms-container input[type=email],
+.wpforms-container input[type=tel],.wpforms-container select,.wpforms-container textarea{
+  width:100%;padding:.72em .85em;border:1.5px solid #d8dee7;border-radius:8px;
+  font:inherit;font-size:.96rem;margin-bottom:1em;background:#fff}
+.wpforms-container label{display:block;font-weight:600;margin-bottom:.3em;font-size:.9rem}
+.wpforms-container textarea{min-height:120px}
+.wpforms-container button[type=submit],.wpforms-submit{
+  background:#1b8bc0;color:#fff;border:0;padding:.9em 2em;border-radius:8px;
+  font-weight:700;font-size:1rem;cursor:pointer}
+.wpforms-container button[type=submit]:hover{background:#146d99}
+.wpforms-field{margin-bottom:.4em}
+.wpforms-field-row{display:flex;gap:14px;flex-wrap:wrap}
+.wpforms-field-row>div{flex:1 1 200px}
+
+/* ---- hero con vídeo: garantizar que cubre y queda centrado ----
+   Avada aplica transform:translate(-50%,-50%) al <video>, así que top/left
+   deben quedar al 50% y width/height en auto. Con inset:0 el vídeo se va fuera. */
+.fullwidth-box.video-background,.video-background{
+  position:relative !important;overflow:hidden !important}
+.fullwidth-box.video-background .fullwidth-video,.video-background .fullwidth-video{
+  position:absolute !important;top:0 !important;left:0 !important;
+  width:100% !important;height:100% !important;overflow:hidden !important;z-index:0 !important}
+.fullwidth-box.video-background .fullwidth-video video,
+.video-background video,video.hero-video{
+  position:absolute !important;top:50% !important;left:50% !important;
+  right:auto !important;bottom:auto !important;
+  width:auto !important;height:auto !important;
+  min-width:100% !important;min-height:100% !important;
+  max-width:none !important;max-height:none !important;
+  transform:translate(-50%,-50%) !important;
+  object-fit:cover !important;object-position:center center !important;
+  display:block !important;visibility:visible !important}
+/* la capa de degradado y el contenido, por encima del vídeo */
+.video-background .fullwidth-overlay{position:absolute !important;top:0;left:0;right:0;bottom:0;z-index:1 !important}
+.video-background>.fusion-builder-row{position:relative !important;z-index:2 !important}
+/* ---- HERO: fuera el flex ----
+   La cadena de contenedores flex resolvía una altura menor que su contenido y,
+   con justify-content:center, el titular rebosaba por arriba y quedaba tapado
+   por la cabecera. En bloque, el contenido manda y el min-height da el alto. */
+.fullwidth-box.video-background{
+  display:block !important;
+  height:auto !important;
+  min-height:calc(100vh - 100px) !important;
+  padding:80px 0 70px !important;
+  overflow:hidden !important;position:relative !important}
+.video-background .fusion-builder-row,
+.video-background .fusion-layout-column,
+.video-background .fusion-column-wrapper,
+.video-background .fusion_builder_column{
+  display:block !important;height:auto !important;
+  min-height:0 !important;max-height:none !important;
+  position:relative !important;z-index:2 !important}
+@media(max-width:800px){
+  .fullwidth-box.video-background{min-height:auto !important;padding:52px 0 46px !important}}
+
+/* ---- VISIBILIDAD RESPONSIVE ----
+   El CSS dinámico de Avada nunca se descargó y con él se perdieron estas reglas.
+   Sin ellas, las 2.050 marcas de "ocultar en móvil / tablet / escritorio" no hacían
+   nada y se mostraban a la vez la versión de escritorio y la de móvil.
+   Especificidad alta a propósito: si no, las reglas del hero de arriba las ganan. */
+@media screen and (max-width:850px){
+  .fusion-no-small-visibility,
+  .fusion-fullwidth.fullwidth-box.fusion-no-small-visibility,
+  .fusion-fullwidth.video-background.fusion-no-small-visibility,
+  div.fusion-layout-column.fusion-no-small-visibility,
+  div.fusion-no-small-visibility{display:none !important}}
+@media screen and (min-width:851px) and (max-width:1280px){
+  .fusion-no-medium-visibility,
+  .fusion-fullwidth.fullwidth-box.fusion-no-medium-visibility,
+  .fusion-fullwidth.video-background.fusion-no-medium-visibility,
+  div.fusion-layout-column.fusion-no-medium-visibility,
+  div.fusion-no-medium-visibility{display:none !important}}
+@media screen and (min-width:1281px){
+  .fusion-no-large-visibility,
+  .fusion-fullwidth.fullwidth-box.fusion-no-large-visibility,
+  .fusion-fullwidth.video-background.fusion-no-large-visibility,
+  div.fusion-layout-column.fusion-no-large-visibility,
+  div.fusion-no-large-visibility{display:none !important}}
+
+/* hero de móvil (no trae <video>, solo el hueco): darle imagen de fondo */
+@media screen and (max-width:850px){
+  .fusion-builder-row-3.video-background{
+    background-image:url(../2024/04/hero-bg.jpg) !important;
+    background-size:cover !important;background-position:center center !important;
+    background-repeat:no-repeat !important;
+    min-height:auto !important;height:auto !important;padding:56px 20px 48px !important;
+    position:relative !important;overflow:hidden !important}
+  .fusion-builder-row-3.video-background .fusion-builder-row,
+  .fusion-builder-row-3.video-background .fusion-layout-column,
+  .fusion-builder-row-3.video-background .fusion-column-wrapper{
+    display:block !important;height:auto !important;min-height:0 !important;
+    width:100% !important;max-width:100% !important;position:relative;z-index:2}
+}
+
+/* ---- TIPOGRAFÍA DEL HERO ---- */
+.video-background h1,.video-background h2,
+.video-background .fusion-title-heading,
+.video-background .title-heading-center{
+  font-size:clamp(2rem,3.7vw,3.35rem) !important;
+  line-height:1.1 !important;letter-spacing:-.015em !important;
+  margin-bottom:.5em !important}
+.video-background p,.video-background .fusion-text,
+.video-background .fusion-text p{
+  font-size:clamp(.94rem,1.05vw,1.02rem) !important;line-height:1.6 !important}
+.video-background .fusion-button,.video-background .fusion-button-wrapper a{
+  font-size:.95rem !important}
+@media(max-width:850px){
+  .video-background h1,.video-background h2,
+  .video-background .fusion-title-heading{font-size:1.85rem !important}
+  .video-background p,.video-background .fusion-text p{font-size:.95rem !important}}
+
+.boxed-wrapper,.fusion-wrapper{overflow-x:clip}
+
+/* ---- EQUIPO: tres perfiles reales ---- */
+.mpa-equipo{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;max-width:1180px;margin:44px auto 0;padding:0 10px}
+.mpa-persona{
+  background:#ffffff;border:1px solid #e6eaf2;border-radius:20px;overflow:hidden;
+  box-shadow:0 10px 28px rgba(13,27,62,.07);text-align:center;
+  transition:transform .25s ease,box-shadow .25s ease}
+.mpa-persona:hover{transform:translateY(-4px);box-shadow:0 18px 44px rgba(13,27,62,.13)}
+.mpa-persona__foto{aspect-ratio:1/1;overflow:hidden;background:#eef1f6}
+.mpa-persona__foto img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block}
+.mpa-persona__nombre{
+  font-size:1.12rem !important;font-weight:700 !important;color:#0d1b3e !important;
+  margin:20px 16px 6px !important;line-height:1.25 !important}
+.mpa-persona__rol{
+  font-size:.9rem !important;color:#5a6784 !important;line-height:1.55 !important;
+  margin:0 16px 24px !important}
+@media(max-width:1100px){.mpa-equipo{grid-template-columns:repeat(2,1fr);gap:22px}}
+@media(max-width:640px){.mpa-equipo{grid-template-columns:1fr;gap:20px;margin-top:32px}
+  .mpa-persona__foto{aspect-ratio:4/3}}
+/* la columna del equipo debe ocupar todo el ancho y no heredar la tarjeta blanca de la fila 8 */
+body.home .fusion-builder-row-8 .mpa-equipo-col,
+.mpa-equipo-col{
+  width:100% !important;max-width:100% !important;flex:0 0 100% !important;
+  padding:0 !important;margin:0 !important;background:transparent !important;
+  border:0 !important;border-radius:0 !important;box-shadow:none !important}
+body.home .fusion-builder-row-8 .mpa-equipo-col .fusion-column-wrapper,
+.mpa-equipo-col .fusion-column-wrapper{
+  width:100% !important;max-width:100% !important;padding:0 !important;
+  background:transparent !important;border-radius:0 !important;box-shadow:none !important;
+  display:block !important}
+
+/* las columnas-imagen van a ras del contenedor, sin el margen lateral de Avada */
+body.home .fusion-builder-row-6 > .fusion-builder-row > .fusion-layout-column:first-child,
+body.home .fusion-builder-row-11 > .fusion-builder-row > .fusion-layout-column:first-child{
+  padding:0 !important;margin:0 !important;
+  --awb-spacing-right-large:0 !important;--awb-spacing-left-large:0 !important;
+  --awb-spacing-right-medium:0 !important;--awb-spacing-left-medium:0 !important}
+@media(max-width:850px){
+  body.home .fusion-builder-row-6 > .fusion-builder-row > .fusion-layout-column:first-child,
+  body.home .fusion-builder-row-11 > .fusion-builder-row > .fusion-layout-column:first-child{
+    min-height:240px !important}}
+
+/* al quedar una sola ciudad, el bloque se centra en vez de dejar el hueco a la derecha */
+body.home .fusion-builder-row-12 > .fusion-builder-row > .fusion-layout-column:first-child{
+  max-width:640px !important;margin-left:auto !important;margin-right:auto !important;
+  text-align:center !important}
+body.home .fusion-builder-row-12 > .fusion-builder-row > .fusion-layout-column:first-child .fusion-title,
+body.home .fusion-builder-row-12 > .fusion-builder-row > .fusion-layout-column:first-child .fusion-separator{
+  text-align:center !important;margin-left:auto !important;margin-right:auto !important}
+body.home .fusion-builder-row-12 > .fusion-builder-row > .fusion-layout-column:first-child ul.fusion-checklist{
+  display:inline-block !important;text-align:left !important}
+
+/* Lo mismo en las 158 páginas interiores. Ahí el número de fila cambia en cada
+   página, así que la columna que sobrevive lleva la marca .mpa-ciudad-unica.
+   Nota: Avada saca el ancho de var(--awb-col-width), no de la clase 1_1, por eso
+   además hay que tocar la variable en el propio elemento. */
+.fusion-layout-column.mpa-ciudad-unica{
+  max-width:640px !important;margin-left:auto !important;margin-right:auto !important;
+  --awb-spacing-right-large:0%;--awb-spacing-left-large:0%;
+  --awb-spacing-right-medium:0%;--awb-spacing-left-medium:0%;
+  text-align:center !important}
+.fusion-layout-column.mpa-ciudad-unica .fusion-column-wrapper{
+  padding-left:24px !important;padding-right:24px !important}
+.fusion-layout-column.mpa-ciudad-unica .fusion-title,
+.fusion-layout-column.mpa-ciudad-unica .fusion-title-heading,
+.fusion-layout-column.mpa-ciudad-unica .fusion-separator{
+  text-align:center !important;margin-left:auto !important;margin-right:auto !important}
+.fusion-layout-column.mpa-ciudad-unica ul.fusion-checklist{
+  display:inline-block !important;text-align:left !important;margin-left:0 !important}
+@media screen and (max-width:850px){
+  .fusion-layout-column.mpa-ciudad-unica{max-width:100% !important}
+  .fusion-layout-column.mpa-ciudad-unica .fusion-column-wrapper{
+    padding-left:14px !important;padding-right:14px !important}}
+
+/* ================= ESCALA MÓVIL =================
+   El CSS dinámico de Avada traía los tamaños de tipografía y los espaciados
+   por punto de corte, y nunca se descargó. Resultado: en un móvil de 390px
+   los h2 salían a 44px, los párrafos a 24px y las secciones con 120px de
+   relleno. Esto reconstruye esa escala. */
+@media screen and (max-width:850px){
+  .fusion-fullwidth h1,.fusion-fullwidth .fusion-title-heading.title-heading-center{
+    font-size:clamp(1.6rem,6.4vw,2rem) !important;line-height:1.15 !important}
+  .fusion-fullwidth h2,.fusion-title h2{font-size:clamp(1.45rem,5.6vw,1.8rem) !important;line-height:1.2 !important}
+  .fusion-fullwidth h3,.fusion-title h3{font-size:clamp(1.2rem,4.6vw,1.42rem) !important;line-height:1.25 !important}
+  .fusion-fullwidth h4,.fusion-title h4{font-size:1.12rem !important;line-height:1.3 !important}
+  .fusion-fullwidth h5,.fusion-title h5{font-size:1.02rem !important;line-height:1.3 !important}
+  .fusion-fullwidth p,.fusion-text p,.fusion-li-item-content p{
+    font-size:.96rem !important;line-height:1.6 !important}
+  .fusion-text{font-size:.96rem !important}
+  /* espaciado: secciones que respiran sin desperdiciar pantalla */
+  .fusion-fullwidth{padding-top:44px !important;padding-bottom:44px !important}
+  .fusion-fullwidth .fusion-layout-column{margin-bottom:18px !important}
+  /* botones: compactos y sin partirse en dos líneas */
+  .fusion-button,.awb-button,.fusion-menu-cart-checkout .fusion-button{
+    padding:13px 22px !important;font-size:.9rem !important;
+    min-width:0 !important;white-space:nowrap !important;line-height:1.2 !important}
+  /* cabecera: el botón no debe comerse el logo */
+  /* El logo comparte fila con el boton de llamada y el menu, ambos anclados a
+     la derecha. A 150px fijos se solapaban 22px en un movil de 390. Con clamp
+     el logo cede ancho segun la pantalla y nunca baja de 64px. */
+  .fusion-logo img,img[src*="logo"]{
+    max-width:clamp(64px, calc(100vw - 258px), 118px) !important;height:auto !important}
+  .fusion-main-menu .fusion-button{padding:11px 16px !important;font-size:.82rem !important}
+  /* iconos de las tarjetas, proporcionados al nuevo tamaño de texto */
+  /* Solo los iconos declarados como tal. La version anterior era
+     '.fusion-fullwidth .fusion-image-element img' y encogia a 74px todo:
+     los banners de ciudad, las fotos de los articulos y el propio logo. */
+  .fusion-icon-only img{max-width:74px !important}
+}
+@media screen and (max-width:480px){
+  .fusion-fullwidth h1,.fusion-fullwidth .fusion-title-heading.title-heading-center{font-size:1.62rem !important}
+  .fusion-fullwidth h2,.fusion-title h2{font-size:1.4rem !important}
+  .fusion-fullwidth h3,.fusion-title h3{font-size:1.16rem !important}
+  .fusion-fullwidth p,.fusion-text p{font-size:.93rem !important}
+  .fusion-fullwidth{padding-top:36px !important;padding-bottom:36px !important}
+  /* el equipo: dos por fila, no una foto gigante por pantalla */
+  .mpa-equipo{grid-template-columns:repeat(2,1fr) !important;gap:12px !important;margin-top:26px !important}
+  .mpa-persona__foto{aspect-ratio:1/1 !important}
+  .mpa-persona__nombre{font-size:.92rem !important;margin:12px 10px 4px !important}
+  .mpa-persona__rol{font-size:.76rem !important;line-height:1.4 !important;margin:0 10px 14px !important}
+}
+
+/* En móvil el envoltorio interior de Avada mantenía 60px de relleno arriba y
+   abajo: cada tarjeta de servicio medía 470px de alto con 150 de contenido. */
+@media screen and (max-width:850px){
+  body.home .fusion-builder-row-5 .fusion-column-wrapper,
+  body.home .fusion-builder-row-8 .fusion-column-wrapper,
+  body.home .fusion-builder-row-6 .fusion-column-wrapper,
+  body.home .fusion-builder-row-11 .fusion-column-wrapper{
+    padding-top:14px !important;padding-bottom:14px !important}
+  body.home .fusion-builder-row-5 > .fusion-builder-row > .fusion_builder_column_1_3{
+    padding:22px 20px !important;margin-bottom:14px !important}
+  body.home .fusion-builder-row-5 .fusion-layout-column,
+  body.home .fusion-builder-row-5 .fusion-builder-row-inner{margin-bottom:0 !important;min-height:0 !important}
+  /* los círculos de icono, a escala del texto nuevo */
+  body.home .fusion-builder-row-5 .fusion-image-element,
+  body.home .fusion-builder-row-5 .fusion-image-element img{max-width:66px !important;margin-bottom:8px !important}
+}
+@media screen and (max-width:480px){
+  .mpa-persona__nombre{font-size:.88rem !important;hyphens:auto}
+}
+/* el círculo del icono medía 135px en móvil, a escala de escritorio */
+@media screen and (max-width:850px){
+  .fb-icon-element,body.home .fusion-builder-row-5 .fb-icon-element{
+    width:78px !important;height:78px !important;line-height:78px !important;
+    font-size:32px !important;margin-bottom:10px !important}
+  .fb-icon-element i,.fb-icon-element:before{font-size:32px !important;line-height:78px !important}
+}
+
+/* ===== MÓVIL: tarjetas de servicio, dos por fila ===== */
+@media screen and (max-width:850px){
+  body.home .fusion-builder-row-5 > .fusion-builder-row{
+    display:flex !important;flex-wrap:wrap !important;gap:12px !important;
+    align-items:stretch !important;justify-content:center !important;
+    padding-left:0 !important;padding-right:0 !important}
+  body.home .fusion-builder-row-5 > .fusion-builder-row > .fusion_builder_column_1_2{
+    width:100% !important;max-width:100% !important;flex:0 0 100% !important;margin:0 0 6px !important}
+  body.home .fusion-builder-row-5 > .fusion-builder-row > .fusion_builder_column_1_3{
+    width:calc(50% - 6px) !important;max-width:calc(50% - 6px) !important;
+    flex:0 0 calc(50% - 6px) !important;
+    padding:20px 12px !important;margin:0 !important;border-radius:16px !important}
+  body.home .fusion-builder-row-5 .fusion-column-wrapper{
+    padding:0 !important;text-align:center !important;height:auto !important;min-height:0 !important}
+  body.home .fusion-builder-row-5 .fb-icon-element{
+    width:54px !important;height:54px !important;line-height:54px !important;
+    font-size:23px !important;margin:0 auto 11px !important}
+  body.home .fusion-builder-row-5 .fb-icon-element i,
+  body.home .fusion-builder-row-5 .fb-icon-element:before{font-size:23px !important;line-height:54px !important}
+  /* sin partir palabras: si no cabe, encoge la letra antes que romperla */
+  body.home .fusion-builder-row-5 .fusion-title-heading{
+    font-size:.8rem !important;line-height:1.3 !important;text-align:center !important;
+    margin:0 0 7px !important;overflow-wrap:normal !important;word-break:normal !important;
+    hyphens:none !important;-webkit-hyphens:none !important}
+  body.home .fusion-builder-row-5 .fusion-text,
+  body.home .fusion-builder-row-5 .fusion-text p{
+    font-size:.72rem !important;line-height:1.45 !important;text-align:center !important;
+    overflow-wrap:normal !important;word-break:normal !important}
+  body.home .fusion-builder-row-5 .fusion-image-element,body.home .fusion-builder-row-5 .fusion-icon{text-align:center !important}
+  body.home .fusion-builder-row-5 .fusion-separator{display:none !important}
+
+  /* botones compactos */
+  .fusion-button,.awb-button,a.fusion-button{
+    padding:10px 16px !important;font-size:.8rem !important;
+    white-space:nowrap !important;line-height:1.15 !important;
+    min-width:0 !important;max-width:none !important;width:auto !important}
+  .fusion-main-menu .fusion-button,.fusion-mobile-menu .fusion-button,
+  header .fusion-button,.fusion-header .fusion-button{
+    padding:9px 13px !important;font-size:.75rem !important}
+  .video-background .fusion-button{padding:13px 24px !important;font-size:.88rem !important}
+}
+@media screen and (max-width:380px){
+  body.home .fusion-builder-row-5 .fusion-title-heading{font-size:.75rem !important}
+  body.home .fusion-builder-row-5 .fusion-text p{font-size:.68rem !important}
+}
+/* La regla de homepage-enhancements (padding:34px 30px) gana por orden en el
+   documento, y la fila añade otros 30px por lado. En un móvil de 390px eso
+   dejaba las tarjetas en 134px. Especificidad mayor + fila más estrecha. */
+@media screen and (max-width:850px){
+  body.home .fusion-fullwidth.fullwidth-box.fusion-builder-row-5{
+    padding-left:12px !important;padding-right:12px !important}
+  body.home .fusion-fullwidth.fullwidth-box.fusion-builder-row-5 > .fusion-builder-row{
+    margin-left:0 !important;margin-right:0 !important;max-width:100% !important}
+  body.home .fusion-fullwidth.fullwidth-box.fusion-builder-row-5 > .fusion-builder-row > .fusion_builder_column_1_3{
+    padding:20px 10px !important;
+    width:calc(50% - 6px) !important;max-width:calc(50% - 6px) !important;
+    flex:0 0 calc(50% - 6px) !important}
+}

@@ -1,0 +1,55 @@
+/* Iconos: restaura las fuentes de iconos que faltaban en la copia estática.
+   awb-icons (icomoon de Avada) no existe públicamente: se sustituye por
+   Font Awesome, que cubre los mismos códigos usados en este sitio. */
+@font-face{font-family:awb-icons;font-style:normal;font-weight:400;font-display:block;
+  src:url(../../themes/Avada/includes/lib/assets/fonts/fontawesome/webfonts/fa-solid-900.woff2) format("woff2"),
+      url(../../themes/Avada/includes/lib/assets/fonts/fontawesome/webfonts/fa-solid-900.ttf) format("truetype")}
+/* Iconos sociales (compartir) que usaban glifos icomoon \e6xx */
+[class^=awb-icon-]:before,[class*=" awb-icon-"]:before{font-family:"Font Awesome 5 Brands"!important;font-weight:400!important}
+.awb-icon-facebook:before{content:"\f39e"!important}
+.awb-icon-twitter:before{content:"\f099"!important}
+.awb-icon-reddit:before{content:"\f281"!important}
+.awb-icon-linkedin:before{content:"\f0e1"!important}
+.awb-icon-whatsapp:before{content:"\f232"!important}
+.awb-icon-telegram:before{content:"\f2c6"!important}
+.awb-icon-tumblr:before{content:"\f173"!important}
+.awb-icon-pinterest:before{content:"\f231"!important}
+.awb-icon-vk:before{content:"\f189"!important}
+.awb-icon-xing:before{content:"\f168"!important}
+.awb-icon-mail:before{font-family:"Font Awesome 5 Free"!important;font-weight:900!important;content:"\f0e0"!important}
+
+/* Menú móvil: estado abierto (el CSS original dependía del JS de Avada) */
+@media(max-width:800px){
+  .awb-menu.awb-menu_open .awb-menu__main-ul{
+    display:block!important;max-height:80vh!important;overflow:auto!important;pointer-events:auto!important;
+    opacity:1!important;visibility:visible!important;position:absolute!important;
+    top:100%!important;left:0!important;right:0!important;width:100%!important;
+    background:#fff!important;z-index:9999!important;
+    box-shadow:0 14px 34px rgba(10,30,60,.18)!important;padding:8px 0!important}
+  .awb-menu.awb-menu_open .awb-menu__main-ul>li{display:block!important;width:100%!important}
+  .awb-menu.awb-menu_open .awb-menu__sub-ul{position:static!important;max-height:none!important;pointer-events:auto!important;
+    opacity:1!important;overflow:visible!important;box-shadow:none!important;transform:none!important}
+}
+
+/* Los overlays decorativos no deben bloquear clics (antes lo resolvía el JS) */
+.fullwidth-overlay{pointer-events:none!important}
+
+/* Menú móvil: anclar el panel al ancho completo de la cabecera */
+@media(max-width:800px){
+  .fusion-tb-header .awb-menu,
+  .fusion-tb-header .fusion-layout-column,
+  .fusion-tb-header .fusion-builder-row{position:static!important}
+  .fusion-tb-header .fusion-fullwidth{position:relative!important}
+  .awb-menu.awb-menu_open .awb-menu__main-ul{text-align:left!important}
+  .awb-menu.awb-menu_open .awb-menu__main-ul .awb-menu__main-a{justify-content:flex-start!important;padding:12px 18px!important;white-space:nowrap!important}
+}
+
+/* La cabecera (y sus menús desplegables) siempre por encima del contenido */
+.fusion-tb-header{position:relative;z-index:99999}
+
+.awb-menu.awb-menu_open .awb-menu__main-ul *{pointer-events:auto!important}
+
+/* Escritorio: si el menú tiene panel mega, ocultar el desplegable simple duplicado */
+@media(min-width:801px){
+  .awb-menu li:has(.awb-submenu) > .awb-menu__sub-ul{display:none!important}
+}
