@@ -1,0 +1,49 @@
+name: Regenerar blog desde Soro
+
+on:
+  schedule:
+    # Dos pasadas al dia (UTC). 13:30 UTC = 9:30 ET | 01:30 UTC = 21:30 ET
+    - cron: "30 13 * * *"
+    - cron: "30 1 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: regenerar-blog
+  cancel-in-progress: false
+
+jobs:
+  regenerar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar el repo
+        uses: actions/checkout@v4
+
+      - name: Preparar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Generar las paginas del blog
+        env:
+          SORO_FEED_URL: ${{ secrets.SORO_FEED_URL }}
+        run: |
+          if [ -z "$SORO_FEED_URL" ]; then
+            echo "::error::Falta el secret SORO_FEED_URL."
+            exit 1
+          fi
+          python3 _tools/generar-blog.py --site . --feed-url "$SORO_FEED_URL"
+
+      - name: Publicar si hay cambios
+        run: |
+          git config user.name "soro-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "Sin articulos nuevos. No se publica nada."
+          else
+            git commit -m "Blog: articulos nuevos de Soro ($(date -u +%Y-%m-%d))"
+            git push
+          fi
