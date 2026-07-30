@@ -1,0 +1,10 @@
+# Archivos del repo que NO deben publicarse en el sitio
+.github
+.gitignore
+.assetsignore
+wrangler.jsonc
+_tools
+_to_delete
+_respaldo-html-antes-telefono
+_respaldo-blog-widget
+miamipiagency
