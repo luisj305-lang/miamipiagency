@@ -16,6 +16,11 @@
       ['mpa-6fdb795e', 'blackmail-resolution-strategy.webp', 1536, 1024, 'Professional strategy for resolving a blackmail case'],
       ['Database-scaled-1', 'blackmail-digital-evidence.webp', 1536, 1024, 'Digital-forensics investigator documenting case evidence'],
       ['mpa-96a7c156', 'blackmail-resolution-strategy.webp', 1536, 1024, 'Private investigation team planning a lawful resolution']
+    ],
+    'page-id-478': [
+      ['mpa-bbdc59d6', 'child-custody-investigation.webp', 1536, 1024, 'Private investigator organizing lawful child custody case documentation'],
+      ['mpa-c8072d2a', 'child-custody-consultation.webp', 1619, 971, 'Confidential child custody investigation consultation with an adult client'],
+      ['mpa-1324e338', 'child-custody-evidence-review.webp', 1536, 1024, 'Investigator reviewing lawful evidence for a child custody case']
     ]
   };
 
