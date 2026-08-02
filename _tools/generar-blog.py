@@ -48,6 +48,11 @@ NOT_POSTS = {
 CONTENT_ANCHOR_OPEN = "<main id=\"main\" class=\"clearfix width-100\">"
 CONTENT_ANCHOR_CLOSE = "</main>"
 
+
+def clean_generated_text(value):
+    """Normaliza saltos de linea y elimina espacios al final de cada linea."""
+    return "\n".join(line.rstrip() for line in value.splitlines()) + "\n"
+
 # Mapa palabra-clave -> pagina de servicio, para enlazado interno automatico.
 INTERNAL_LINKS = [
     ("skip tracing", "/skip-tracing/"),
@@ -388,8 +393,8 @@ LIST_CSS = """
 """
 
 
-def render_blog_index(site, prefix, suffix, soro_posts, legacy_posts):
-    url = f"{SITE_URL}/blog/"
+def render_blog_index(site, prefix, suffix, soro_posts, legacy_posts, page_path="blog/"):
+    url = f"{SITE_URL}/{page_path}"
     head, rest = clean_head(prefix)
     meta = {
         "title": "Blog", "iso": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%S+00:00"),
@@ -409,6 +414,11 @@ def render_blog_index(site, prefix, suffix, soro_posts, legacy_posts):
 <meta property="og:url" content="{url}" />
 <meta name="twitter:card" content="summary_large_image" />
 """ + LIST_CSS
+
+    rest = re.sub(
+        r'(<h1 class="fusion-title-heading[^"]*"[^>]*>).*?(</h1>)',
+        r'\1Miami PI Agency Blog\2',
+        rest, count=1, flags=re.S)
 
     soro_sorted = sorted(soro_posts, key=lambda p: p["date"], reverse=True)
     legacy_sorted = sorted(legacy_posts, key=lambda p: p["date"], reverse=True)
@@ -445,7 +455,7 @@ def update_sitemap(site, posts):
     if not os.path.exists(path):
         print("  ! sitemap.xml no encontrado, se omite")
         return 0
-    xml = open(path, encoding="utf-8").read()
+    xml = open(path, encoding="utf-8").read().replace("\r\n", "\n").replace("\r", "\n")
     added = 0
     for p in sorted(posts, key=lambda x: x["date"]):
         loc = f"{SITE_URL}/{p['slug']}/"
@@ -455,8 +465,7 @@ def update_sitemap(site, posts):
                  f"<changefreq>monthly</changefreq><priority>0.7</priority></url>\n")
         xml = xml.replace("</urlset>", entry + "</urlset>")
         added += 1
-    if added:
-        open(path, "w", encoding="utf-8").write(xml)
+    open(path, "w", encoding="utf-8", newline="").write(xml)
     return added
 
 
@@ -477,7 +486,7 @@ def main():
     tpl_path = os.path.join(site, TEMPLATE_REL)
     if not os.path.exists(tpl_path):
         sys.exit(f"No encuentro la plantilla: {tpl_path}")
-    tpl = open(tpl_path, encoding="utf-8").read()
+    tpl = open(tpl_path, encoding="utf-8").read().replace("\r\n", "\n").replace("\r", "\n")
     prefix, suffix = split_template(tpl)
 
     items = load_items(args)
@@ -490,8 +499,9 @@ def main():
     for it in items:
         out_dir = os.path.join(site, it["slug"])
         os.makedirs(out_dir, exist_ok=True)
-        page = render_article(prefix, suffix, it, autolink=not args.no_autolink)
-        open(os.path.join(out_dir, "index.html"), "w", encoding="utf-8").write(page)
+        page = clean_generated_text(
+            render_article(prefix, suffix, it, autolink=not args.no_autolink))
+        open(os.path.join(out_dir, "index.html"), "w", encoding="utf-8", newline="").write(page)
         print(f"  + /{it['slug']}/  ({len(page)//1024} KB)")
 
     if not args.skip_index:
@@ -502,9 +512,21 @@ def main():
         else:
             found = scan_legacy_posts(site)
         legacy = [p for p in found if p["slug"] not in soro_slugs]
-        idx = render_blog_index(site, prefix, suffix, items, legacy)
-        open(os.path.join(site, "blog", "index.html"), "w", encoding="utf-8").write(idx)
-        print(f"  + /blog/  ({len(items)} nuevos + {len(legacy)} del archivo)")
+        blog_pages = [
+            ("blog/", os.path.join(site, "blog", "index.html")),
+            ("blog/page/2/", os.path.join(site, "blog", "page", "2", "index.html")),
+        ]
+        for page_path, output_path in blog_pages:
+            os.makedirs(os.path.dirname(output_path), exist_ok=True)
+            idx = render_blog_index(site, prefix, suffix, items, legacy, page_path)
+            if page_path != "blog/":
+                # Las plantillas exportadas usan rutas relativas pensadas para
+                # paginas de primer nivel. La base mantiene CSS, JS e imagenes
+                # correctos también dentro de /blog/page/2/.
+                idx = idx.replace("<head>", '<head>\n<base href="/" />', 1)
+                idx = clean_generated_text(idx)
+            open(output_path, "w", encoding="utf-8", newline="").write(idx)
+            print(f"  + /{page_path}  ({len(items)} nuevos + {len(legacy)} del archivo)")
 
     n = update_sitemap(site, items)
     print(f"  + sitemap.xml ({n} URLs nuevas)")
