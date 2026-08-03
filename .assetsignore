@@ -1,7 +1,18 @@
 # Archivos del repo que NO deben publicarse en el sitio
 .github
+**/.git
+**/.git/**
 .gitignore
 .assetsignore
+**/.wrangler
+**/.wrangler/**
+**/.agents
+**/.agents/**
+**/.codex
+**/.codex/**
+**/node_modules
+**/node_modules/**
+*.log
 wrangler.jsonc
 README.md
 _tools

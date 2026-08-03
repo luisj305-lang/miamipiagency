@@ -5,3 +5,6 @@
 
 # Clon vacio que quedo de una prueba con GitHub Desktop
 /miamipiagency/
+
+# Archivos temporales locales de Wrangler
+/.wrangler/

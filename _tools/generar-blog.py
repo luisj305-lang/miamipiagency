@@ -286,8 +286,8 @@ def render_article(prefix, suffix, item, autolink=True):
 .fusion-page-title-bar>.soro-header-img{position:absolute;inset:0;width:100%;height:100%;
   object-fit:cover;object-position:center 54%;z-index:0}
 .fusion-page-title-bar:after{content:"";position:absolute;inset:0;z-index:1;
-  background:linear-gradient(90deg,rgba(5,13,46,.70),rgba(5,13,46,.52),rgba(5,13,46,.72))}
-.fusion-page-title-bar>.fusion-fullwidth{position:relative;z-index:2;background-color:transparent!important}
+  background:linear-gradient(90deg,rgba(5,13,46,.54),rgba(5,13,46,.38),rgba(5,13,46,.56))}
+.fusion-page-title-bar>.fusion-fullwidth{position:relative;z-index:2;background:transparent!important}
 </style>
 """
     head += build_head_meta(item, url) + ARTICLE_CSS + header_css
