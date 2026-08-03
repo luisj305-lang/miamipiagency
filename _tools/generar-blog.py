@@ -277,7 +277,26 @@ def add_internal_links(body_html, own_slug):
 def render_article(prefix, suffix, item, autolink=True):
     url = f"{SITE_URL}/{item['slug']}/"
     head, rest = clean_head(prefix)
-    head += build_head_meta(item, url) + ARTICLE_CSS
+    header_image = item.get("header_image", "")
+    header_css = ""
+    if header_image:
+        header_css = """
+<style>
+.fusion-page-title-bar{position:relative;overflow:hidden;isolation:isolate}
+.fusion-page-title-bar>.soro-header-img{position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;object-position:center 54%;z-index:0}
+.fusion-page-title-bar:after{content:"";position:absolute;inset:0;z-index:1;
+  background:linear-gradient(90deg,rgba(5,13,46,.70),rgba(5,13,46,.52),rgba(5,13,46,.72))}
+.fusion-page-title-bar>.fusion-fullwidth{position:relative;z-index:2;background-color:transparent!important}
+</style>
+"""
+    head += build_head_meta(item, url) + ARTICLE_CSS + header_css
+    if header_image:
+        header_tag = re.compile(r'(<section class="fusion-page-title-bar[^"]*">)', re.I)
+        header_img = (f'<img class="soro-header-img" src="{html.escape(header_image, quote=True)}" '
+                      f'alt="{html.escape(item["title"], quote=True)}" width="1672" height="935" '
+                      f'loading="eager" fetchpriority="high" />')
+        rest = header_tag.sub(lambda m: m.group(1) + header_img, rest, count=1)
     rest = re.sub(
         r'(<h1 class="fusion-title-heading[^"]*"[^>]*>).*?(</h1>)',
         lambda m: m.group(1) + html.escape(item["title"]) + m.group(2),
@@ -288,7 +307,7 @@ def render_article(prefix, suffix, item, autolink=True):
         body = add_internal_links(body, item["slug"])
 
     hero = ""
-    if item.get("image"):
+    if item.get("image") and not header_image:
         hero = (f'<img class="soro-hero-img" src="{html.escape(item["image"], quote=True)}" '
                 f'alt="{html.escape(item["title"], quote=True)}" width="1200" height="675" loading="eager" />')
 
