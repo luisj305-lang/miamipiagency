@@ -474,18 +474,44 @@ def update_sitemap(site, posts):
     if not os.path.exists(path):
         print("  ! sitemap.xml no encontrado, se omite")
         return 0
-    xml = open(path, encoding="utf-8").read().replace("\r\n", "\n").replace("\r", "\n")
-    added = 0
-    for p in sorted(posts, key=lambda x: x["date"]):
-        loc = f"{SITE_URL}/{p['slug']}/"
-        if loc in xml:
+    ns = {"sm": "http://www.sitemaps.org/schemas/sitemap/0.9"}
+    tree = ET.parse(path)
+    root = tree.getroot()
+    existing = {}
+    for node in root.findall("sm:url", ns):
+        loc = node.findtext("sm:loc", default="", namespaces=ns).strip()
+        if loc:
+            existing[loc] = {child.tag.rsplit("}", 1)[-1]: (child.text or "")
+                              for child in node if child.tag.rsplit("}", 1)[-1] != "loc"}
+
+    expected = {}
+    for current, dirs, files in os.walk(site):
+        dirs[:] = [name for name in dirs if not name.startswith((".", "_"))]
+        if "index.html" not in files:
             continue
-        entry = (f"<url><loc>{loc}</loc><lastmod>{p['date']}</lastmod>"
-                 f"<changefreq>monthly</changefreq><priority>0.7</priority></url>\n")
-        xml = xml.replace("</urlset>", entry + "</urlset>")
-        added += 1
-    open(path, "w", encoding="utf-8", newline="").write(xml)
-    return added
+        rel = os.path.relpath(os.path.join(current, "index.html"), site).replace(os.sep, "/")
+        source = open(os.path.join(current, "index.html"), encoding="utf-8").read()
+        robots = re.findall(r"<meta\b[^>]*\bname=[\"']robots[\"'][^>]*\bcontent=[\"']([^\"']*)",
+                            source, flags=re.I)
+        if any(re.search(r"(?:^|[\s,])(noindex|none)(?:$|[\s,])", value, flags=re.I)
+               for value in robots):
+            continue
+        url_path = "" if rel == "index.html" else rel[:-len("/index.html")]
+        expected[f"{SITE_URL}/{url_path + '/' if url_path else ''}"] = rel
+
+    removed = len(existing) - len(set(existing) & set(expected))
+    added = len(set(expected) - set(existing))
+    root.clear()
+    root.set("xmlns", "http://www.sitemaps.org/schemas/sitemap/0.9")
+    for loc in sorted(expected):
+        node = ET.SubElement(root, "url")
+        ET.SubElement(node, "loc").text = loc
+        for key, value in existing.get(loc, {}).items():
+            ET.SubElement(node, key).text = value
+        if loc not in existing:
+            ET.SubElement(node, "priority").text = "1.0" if loc == f"{SITE_URL}/" else "0.8"
+    tree.write(path, encoding="utf-8", xml_declaration=True)
+    return added - removed
 
 
 # --------------------------------------------------------------------------
