@@ -91,24 +91,33 @@ img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
 <!-- HFCM by 99 Robots - Snippet # 1: InvestigatorMarketing.com Leads -->
 
 <!-- /end HFCM by 99 Robots -->
-<!-- HFCM by 99 Robots - Snippet # 2: Schema Fort Lauderdale -->
-<script type=application/ld+json>
+<!-- HFCM by 99 Robots - Snippet # 2: Organization Schema -->
+<script type="application/ld+json">
 {
-  "@context": "http://www.schema.org",
-  "@type": "LocalBusiness",
+  "@context": "https://schema.org",
+  "@type": ["Organization", "LocalBusiness", "ProfessionalService"],
+  "@id": "https://miamipiagency.com/#organization",
   "name": "Miami Private Investigator Agency",
-  "priceRange": "$$$",
-  "telephone": "+1 (863) 281-2098",
+  "alternateName": "Miami PI Agency",
   "url": "https://miamipiagency.com/",
   "logo": "https://miamipiagency.com/wp-content/uploads/2024/01/logo-300x87.png",
   "image": "https://miamipiagency.com/wp-content/uploads/2024/01/logo-300x87.png",
-  "description": "Miami PI Agency is a professional investigations and private intelligence agency serving clients across Florida, Texas, Arizona and nationwide.",
-  "areaServed": ["Miami FL","Fort Lauderdale FL","Boca Raton FL","Naples FL","Orlando FL","Tampa FL","Dallas TX","Austin TX","Frisco TX","Phoenix AZ","Scottsdale AZ","Mesa AZ","Tempe AZ","Flagstaff AZ"],
+  "telephone": "+1-863-281-2098",
+  "priceRange": "$$$",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Miami",
+    "addressRegion": "FL",
+    "addressCountry": "US"
+  },
+  "areaServed": "US",
+  "description": "Licensed Florida private investigative agency (Florida agency license #A290026) serving clients nationwide.",
   "openingHours": "Mo 08:00-17:00 Tu 08:00-17:00 We 08:00-17:00 Th 08:00-17:00 Fr 08:00-17:00",
   "contactPoint": {
     "@type": "ContactPoint",
-    "telephone": "+1 (863) 281-2098",
-    "contactType": "Sales"
+    "telephone": "+1-863-281-2098",
+    "contactType": "customer service",
+    "areaServed": "US"
   }
 }
 </script>
