@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pay Securely | Miami PI Agency</title>
+  <meta name="description" content="Securely purchase Miami PI Agency investigative and research services online via Stripe." />
+  <meta name="robots" content="noindex, follow" />
+  <style>
+    :root {
+      --navy: #050d2e;
+      --navy-2: #001233;
+      --blue: #0082bb;
+      --light: #f4f5fa;
+      --border: #ced6ea;
+      --text: #1a2238;
+      --muted: #5a6478;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Mulish", "Segoe UI", Arial, sans-serif;
+      color: var(--text);
+      background: var(--light);
+      line-height: 1.6;
+    }
+    header {
+      background: var(--navy);
+      color: #fff;
+      padding: 22px 20px;
+      text-align: center;
+    }
+    header .brand { font-size: 22px; font-weight: 800; letter-spacing: .3px; }
+    header .sub { color: #a6abcd; font-size: 14px; margin-top: 4px; }
+    main { max-width: 960px; margin: 0 auto; padding: 40px 20px 80px; }
+    h1 { font-size: 26px; color: var(--navy); text-align: center; margin-bottom: 8px; }
+    .lead { text-align: center; color: var(--muted); margin-bottom: 36px; font-size: 15px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+    .card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 26px 24px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 6px 20px rgba(5,13,46,.06);
+    }
+    .card h2 { font-size: 18px; color: var(--navy); margin-bottom: 6px; }
+    .card .price { font-size: 30px; font-weight: 800; color: var(--blue); margin: 8px 0 4px; }
+    .card .price span { font-size: 14px; font-weight: 600; color: var(--muted); }
+    .card p { font-size: 14px; color: var(--muted); flex: 1; margin-bottom: 18px; }
+    button.buy {
+      background: var(--blue);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 13px 16px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background .15s ease;
+      width: 100%;
+    }
+    button.buy:hover { background: #006a9c; }
+    button.buy:disabled { background: #a6abcd; cursor: wait; }
+    .secure {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 32px;
+    }
+    .secure svg { width: 16px; height: 16px; }
+    .error {
+      background: #fdecea;
+      color: #b3261e;
+      border: 1px solid #f5c6c2;
+      border-radius: 8px;
+      padding: 12px 16px;
+      text-align: center;
+      font-size: 14px;
+      margin-bottom: 20px;
+      display: none;
+    }
+    footer { text-align: center; color: var(--muted); font-size: 12px; padding: 0 20px 40px; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">Miami PI Agency</div>
+    <div class="sub">Florida Agency License #A290026</div>
+  </header>
+
+  <main>
+    <h1>Secure Payment</h1>
+    <p class="lead">Choose a service below. Payment is processed securely by Stripe — we never see your card details.</p>
+
+    <div id="error" class="error" role="alert"></div>
+
+    <div class="grid">
+      <div class="card">
+        <h2>Digital Footprint Removal Report</h2>
+        <div class="price">$20 <span>one-time</span></div>
+        <p>Find where your personal information appears online and get removal instructions, delivered by email.</p>
+        <button class="buy" data-price="price_REPLACE_DIGITAL_FOOTPRINT">Buy Now</button>
+      </div>
+
+      <div class="card">
+        <h2>OSINT Background Report</h2>
+        <div class="price">$199 <span>one-time</span></div>
+        <p>A comprehensive open-source intelligence report on a person or business, verified by a licensed investigator.</p>
+        <button class="buy" data-price="price_REPLACE_OSINT">Buy Now</button>
+      </div>
+
+      <div class="card">
+        <h2>Business Due Diligence Report</h2>
+        <div class="price">$499 <span>one-time</span></div>
+        <p>Vet a partner, vendor or investment. Documented findings that hold up in court, delivered within 5 business days.</p>
+        <button class="buy" data-price="price_REPLACE_DUE_DILIGENCE">Buy Now</button>
+      </div>
+    </div>
+
+    <div class="secure">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 1 3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>
+      Payments secured by Stripe — SSL encrypted
+    </div>
+  </main>
+
+  <footer>© Miami PI Agency | Consultations by appointment. This is not legal advice.</footer>
+
+  <script>
+    // Configuración: reemplazá estos IDs por tus "Price IDs" reales de Stripe
+    // (Stripe Dashboard → Product catalog → cada producto tiene un "price_...")
+    const CHECKOUT_URL = '/api/checkout';
+
+    const buttons = document.querySelectorAll('button.buy');
+    const errorBox = document.getElementById('error');
+
+    function showError(msg) {
+      errorBox.textContent = msg;
+      errorBox.style.display = 'block';
+    }
+    function hideError() {
+      errorBox.style.display = 'none';
+    }
+
+    buttons.forEach((btn) => {
+      btn.addEventListener('click', async () => {
+        hideError();
+        const priceId = btn.dataset.price;
+
+        if (!priceId || priceId.startsWith('price_REPLACE_')) {
+          showError('Este servicio todavía no está configurado en Stripe. Avisá al administrador.');
+          return;
+        }
+
+        const original = btn.textContent;
+        btn.disabled = true;
+        btn.textContent = 'Redirecting…';
+
+        try {
+          const res = await fetch(CHECKOUT_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ priceId }),
+          });
+          const data = await res.json();
+
+          if (!res.ok || !data.url) {
+            throw new Error(data.error || 'No se pudo iniciar el pago.');
+          }
+
+          window.location.href = data.url;
+        } catch (err) {
+          btn.disabled = false;
+          btn.textContent = original;
+          showError(err.message || 'Ocurrió un error. Intentá de nuevo.');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
