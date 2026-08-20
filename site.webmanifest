@@ -1,0 +1,23 @@
+{
+  "name": "Miami PI Agency",
+  "short_name": "Miami PI",
+  "description": "Professional investigations and private intelligence agency.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#050D2E",
+  "theme_color": "#050D2E",
+  "icons": [
+    {
+      "src": "/wp-content/uploads/2026/08/favicon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/wp-content/uploads/2026/08/favicon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

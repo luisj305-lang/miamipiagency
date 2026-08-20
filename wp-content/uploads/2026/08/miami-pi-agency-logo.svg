@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 87" role="img" aria-labelledby="title desc">
+  <title id="title">Miami PI Agency</title>
+  <desc id="desc">Miami PI Agency wordmark with geometric MPI shield symbol.</desc>
+  <g transform="translate(4 3) scale(.81)" fill="none" stroke-linecap="square" stroke-linejoin="miter">
+    <path d="M18 24 50 8l32 16v24c0 20-12 35-32 44C30 83 18 68 18 48Z" stroke="#050D2E" stroke-width="8"/>
+    <path d="M18 40V24L34 16M82 60v16L66 84" stroke="#D4A72C" stroke-width="8"/>
+    <path d="M30 65V38l20 19 20-19v27" stroke="#050D2E" stroke-width="8"/>
+    <path d="M50 57V76M50 38h9c8 0 13 4 13 10s-5 10-13 10h-9" stroke="#D4A72C" stroke-width="7"/>
+  </g>
+  <text x="91" y="41" fill="#050D2E" font-family="Arial, Helvetica, sans-serif" font-size="31" font-weight="700" letter-spacing="1.5">MIAMI</text>
+  <text x="93" y="65" fill="#D4A72C" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700" letter-spacing="2.2">PI AGENCY</text>
+</svg>
