@@ -33,7 +33,7 @@ SITE_URL = "https://miamipiagency.com"
 SITE_NAME = "Miami Private Investigator Agency"
 BRAND = "Miami PI Agency"
 PHONE = "1-(786) 326-0163"
-LICENSE = "#A290026"
+BLOG_PAGE_SIZE = 16
 
 # Plantilla: un post existente del sitio, del que se reutiliza cabecera/nav/footer.
 TEMPLATE_REL = "how-effective-is-skip-tracing/index.html"
@@ -173,6 +173,8 @@ def clean_head(prefix):
 
 def build_head_meta(item, url):
     t = html.escape(item["title"], quote=True)
+    seo_title = html.escape(
+        item.get("seo_title") or f'{item["title"]} - {SITE_NAME}', quote=True)
     d = html.escape(item["description"], quote=True)
     img = item.get("image") or f"{SITE_URL}/wp-content/uploads/2021/07/blog-bg.jpg"
     schema = {
@@ -201,7 +203,7 @@ def build_head_meta(item, url):
                 "areaServed": "US",
                 "address": {"@type": "PostalAddress", "addressLocality": "Miami",
                             "addressRegion": "FL", "addressCountry": "US"},
-                "description": f"Licensed Florida private investigative agency (Florida agency license {LICENSE}).",
+                "description": "Professional private investigative services serving Miami and South Florida.",
             },
             {
                 "@type": "BreadcrumbList",
@@ -215,7 +217,7 @@ def build_head_meta(item, url):
         ],
     }
     return f"""
-<title>{t} - {SITE_NAME}</title>
+<title>{seo_title}</title>
 <meta name="description" content="{d}" />
 <link rel="canonical" href="{url}" />
 <meta property="og:locale" content="en_US" />
@@ -292,9 +294,14 @@ def render_article(prefix, suffix, item, autolink=True):
 """
     head += build_head_meta(item, url) + ARTICLE_CSS + header_css
     if header_image:
+        image_width = int(item.get("image_width", 1672))
+        image_height = int(item.get("image_height", 935))
+        if image_width <= 0 or image_height <= 0:
+            raise ValueError("image_width and image_height must be positive integers")
         header_tag = re.compile(r'(<section class="fusion-page-title-bar[^"]*">)', re.I)
         header_img = (f'<img class="soro-header-img" src="{html.escape(header_image, quote=True)}" '
-                      f'alt="{html.escape(item["title"], quote=True)}" width="1672" height="935" '
+                      f'alt="{html.escape(item["title"], quote=True)}" '
+                      f'width="{image_width}" height="{image_height}" '
                       f'loading="eager" fetchpriority="high" />')
         rest = header_tag.sub(lambda m: m.group(1) + header_img, rest, count=1)
     rest = re.sub(
@@ -308,14 +315,19 @@ def render_article(prefix, suffix, item, autolink=True):
 
     hero = ""
     if item.get("image") and not header_image:
+        image_width = int(item.get("image_width", 1200))
+        image_height = int(item.get("image_height", 675))
+        if image_width <= 0 or image_height <= 0:
+            raise ValueError("image_width and image_height must be positive integers")
         hero = (f'<img class="soro-hero-img" src="{html.escape(item["image"], quote=True)}" '
-                f'alt="{html.escape(item["title"], quote=True)}" width="1200" height="675" loading="eager" />')
+                f'alt="{html.escape(item["title"], quote=True)}" '
+                f'width="{image_width}" height="{image_height}" loading="eager" />')
 
     pretty = datetime.strptime(item["date"], "%Y-%m-%d").strftime("%B %d, %Y")
     cta = f"""
 <div class="soro-cta">
   <h2>Discuss your matter confidentially</h2>
-  <p>Licensed Florida private investigative agency (agency license {LICENSE}). Consultations by appointment only.</p>
+  <p>Professional private investigative services in Miami and South Florida. Consultations by appointment only.</p>
   <a class="soro-btn" href="/contact-us/">Request a consultation</a>
   <small>Field work outside Florida is performed by investigators licensed in that state.
   This article is general information, not legal advice.</small>
@@ -407,14 +419,19 @@ LIST_CSS = """
 .mpa-card-title{font-size:1.16rem;font-weight:700;line-height:1.35;color:#0a1733;margin-bottom:10px}
 .mpa-card-desc{font-size:.95rem;line-height:1.65;opacity:.8;flex:1}
 .mpa-card-more{margin-top:16px;font-weight:600;color:#c9a227;font-size:.95rem}
+.mpa-pagination{display:flex;justify-content:space-between;gap:20px;margin-top:42px}
+.mpa-pagination a{color:#0a1733;font-weight:700;text-decoration:none}
+.mpa-pagination a[rel="next"]{margin-left:auto}
+.mpa-pagination a:hover{text-decoration:underline;text-underline-offset:3px}
 @media(max-width:640px){.mpa-list{padding:44px 16px 60px}.mpa-grid{gap:22px}}
 </style>
 """
 
 
-def render_blog_index(site, prefix, suffix, soro_posts, legacy_posts, page_path="blog/"):
+def render_blog_index(prefix, suffix, posts, page_path, page_number, total_pages):
     url = f"{SITE_URL}/{page_path}"
     head, rest = clean_head(prefix)
+    page_suffix = "" if page_number == 1 else f" - Page {page_number}"
     meta = {
         "title": "Blog", "iso": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%S+00:00"),
         "description": ("Insights on private investigations, surveillance, asset searches, "
@@ -422,13 +439,13 @@ def render_blog_index(site, prefix, suffix, soro_posts, legacy_posts, page_path=
         "date": datetime.now(timezone.utc).strftime("%Y-%m-%d"), "image": "",
     }
     head += f"""
-<title>Insights and Expertise: The {SITE_NAME} Blog</title>
+<title>Insights and Expertise: The {SITE_NAME} Blog{page_suffix}</title>
 <meta name="description" content="{meta['description']}" />
 <link rel="canonical" href="{url}" />
 <meta property="og:locale" content="en_US" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="{SITE_NAME}" />
-<meta property="og:title" content="Insights and Expertise: The {SITE_NAME} Blog" />
+<meta property="og:title" content="Insights and Expertise: The {SITE_NAME} Blog{page_suffix}" />
 <meta property="og:description" content="{meta['description']}" />
 <meta property="og:url" content="{url}" />
 <meta name="twitter:card" content="summary_large_image" />
@@ -439,24 +456,28 @@ def render_blog_index(site, prefix, suffix, soro_posts, legacy_posts, page_path=
         r'\1Miami PI Agency Blog\2',
         rest, count=1, flags=re.S)
 
-    soro_sorted = sorted(soro_posts, key=lambda p: p["date"], reverse=True)
-    legacy_sorted = sorted(legacy_posts, key=lambda p: p["date"], reverse=True)
+    heading = "Latest" if page_number == 1 else "More articles"
+    cards = (f'    <h2 class="mpa-sec">{heading}</h2>\n    <div class="mpa-grid">\n'
+             + "\n".join(card(post) for post in posts) + "\n    </div>")
 
-    blocks = []
-    if soro_sorted:
-        blocks.append('    <h2 class="mpa-sec">Latest</h2>\n    <div class="mpa-grid">\n'
-                      + "\n".join(card(p) for p in soro_sorted) + "\n    </div>")
-    if legacy_sorted:
-        blocks.append('    <h2 class="mpa-sec">From the archive</h2>\n    <div class="mpa-grid">\n'
-                      + "\n".join(card(p) for p in legacy_sorted) + "\n    </div>")
+    pagination_links = []
+    if page_number > 1:
+        newer_path = "/blog/" if page_number == 2 else f"/blog/page/{page_number - 1}/"
+        pagination_links.append(f'<a rel="prev" href="{newer_path}">&larr; Newer articles</a>')
+    if page_number < total_pages:
+        pagination_links.append(
+            f'<a rel="next" href="/blog/page/{page_number + 1}/">Older articles &rarr;</a>')
+    pagination = ('    <nav class="mpa-pagination" aria-label="Blog pagination">'
+                  + "".join(pagination_links) + "</nav>" if pagination_links else "")
 
     content = f"""
 <div class="fusion-row" style="max-width:100%;">
 <section id="content" class="full-width">
 <div class="post page type-page status-publish hentry">
 <div class="post-content">
-  <div class="mpa-list">
-{chr(10).join(blocks)}
+    <div class="mpa-list">
+{cards}
+{pagination}
   </div>
 </div></div>
 </section>
@@ -557,21 +578,25 @@ def main():
         else:
             found = scan_legacy_posts(site)
         legacy = [p for p in found if p["slug"] not in soro_slugs]
-        blog_pages = [
-            ("blog/", os.path.join(site, "blog", "index.html")),
-            ("blog/page/2/", os.path.join(site, "blog", "page", "2", "index.html")),
-        ]
-        for page_path, output_path in blog_pages:
+        all_posts = sorted(
+            items + legacy, key=lambda post: (post["date"], post["slug"]), reverse=True)
+        total_pages = max(1, (len(all_posts) + BLOG_PAGE_SIZE - 1) // BLOG_PAGE_SIZE)
+        for page_number in range(1, total_pages + 1):
+            page_path = "blog/" if page_number == 1 else f"blog/page/{page_number}/"
+            output_path = os.path.join(site, page_path, "index.html")
             os.makedirs(os.path.dirname(output_path), exist_ok=True)
-            idx = render_blog_index(site, prefix, suffix, items, legacy, page_path)
-            if page_path != "blog/":
+            start = (page_number - 1) * BLOG_PAGE_SIZE
+            page_posts = all_posts[start:start + BLOG_PAGE_SIZE]
+            idx = render_blog_index(
+                prefix, suffix, page_posts, page_path, page_number, total_pages)
+            if page_number != 1:
                 # Las plantillas exportadas usan rutas relativas pensadas para
                 # paginas de primer nivel. La base mantiene CSS, JS e imagenes
                 # correctos también dentro de /blog/page/2/.
                 idx = idx.replace("<head>", '<head>\n<base href="/" />', 1)
                 idx = clean_generated_text(idx)
             open(output_path, "w", encoding="utf-8", newline="").write(idx)
-            print(f"  + /{page_path}  ({len(items)} nuevos + {len(legacy)} del archivo)")
+            print(f"  + /{page_path}  ({len(page_posts)} articulos, pagina {page_number}/{total_pages})")
 
     n = update_sitemap(site, items)
     print(f"  + sitemap.xml ({n} URLs nuevas)")
