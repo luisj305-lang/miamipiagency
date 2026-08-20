@@ -12,6 +12,15 @@
 .fusion-fullwidth.fusion-builder-row-2{
   background-image:url(../2024/04/banner-interior.jpg);
   background-size:cover;background-position:center center;background-repeat:no-repeat}
+/* Contact Us has its own consultation photo; the generic Avada fallback above
+   otherwise overrides the page's data-bg attribute. */
+body.page-id-1287 .fusion-fullwidth.fusion-builder-row-2{
+  background-image:
+    linear-gradient(90deg,rgba(6,17,38,.94) 0%,rgba(6,17,38,.7) 46%,rgba(6,17,38,.16) 100%),
+    url(../2026/08/contact-us-hero.webp) !important;
+  background-position:center center !important;
+  background-size:cover !important;
+  background-repeat:no-repeat !important}
 /* cabecera de página interior */
 .fusion-page-title-bar,.fusion-title-bar{
   background-image:url(../2024/04/banner-interior.jpg) !important;
