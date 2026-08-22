@@ -40,8 +40,6 @@ const generator = read('_tools/generar-blog.py');
 const template = read('how-effective-is-skip-tracing/index.html');
 const item = JSON.parse(read('_tools/daily-post-2026-08-20.json'))[0];
 const article = read(`${SLUG}/index.html`);
-const firstPage = read('blog/index.html');
-const secondPage = read('blog/page/2/index.html');
 
 assert.equal(item.title, FULL_TITLE, 'the JSON must retain the full article/H1 title');
 assert.equal(item.seo_title, SEO_TITLE, 'the JSON must define the compact SEO title');
@@ -62,21 +60,37 @@ assert.ok(generator.includes('Professional private investigative services servin
 assert.ok(article.includes('Professional private investigative services in Miami and South Florida.'),
   'article CTA must use neutral professional-service wording');
 
-const firstSlugs = cardSlugs(firstPage);
-const secondSlugs = cardSlugs(secondPage);
-assert.equal(firstSlugs.length, PAGE_SIZE, 'blog page 1 must contain 16 cards');
-assert.equal(secondSlugs.length, PAGE_SIZE, 'blog page 2 must contain 16 cards');
-assert.equal(new Set([...firstSlugs, ...secondSlugs]).size, PAGE_SIZE * 2,
-  'blog pages must contain disjoint cards');
+const expected = discoverPosts().map((post) => post.slug);
+const pageCount = Math.ceil(expected.length / PAGE_SIZE);
+const actual = [];
 
-const expected = discoverPosts().slice(0, PAGE_SIZE * 2).map((post) => post.slug);
-assert.equal(expected.length, PAGE_SIZE * 2, 'the current site must expose 32 chronological posts');
-assert.deepEqual([...firstSlugs, ...secondSlugs], expected,
-  'blog pages must be chronological, disjoint slices of the post collection');
+for (let pageNumber = 1; pageNumber <= pageCount; pageNumber += 1) {
+  const path = pageNumber === 1 ? 'blog/index.html' : `blog/page/${pageNumber}/index.html`;
+  assert.ok(existsSync(path), `blog page ${pageNumber} must exist`);
+  const source = read(path);
+  const slugs = cardSlugs(source);
+  const expectedSlice = expected.slice((pageNumber - 1) * PAGE_SIZE, pageNumber * PAGE_SIZE);
 
-assert.match(firstPage, /<nav class="mpa-pagination" aria-label="Blog pagination"><a rel="next" href="\/blog\/page\/2\/">Older articles &rarr;<\/a><\/nav>/,
-  'blog page 1 needs a link to older articles');
-assert.match(secondPage, /<nav class="mpa-pagination" aria-label="Blog pagination"><a rel="prev" href="\/blog\/">&larr; Newer articles<\/a><\/nav>/,
-  'blog page 2 needs a link to newer articles');
+  assert.deepEqual(slugs, expectedSlice,
+    `blog page ${pageNumber} must be the correct chronological slice`);
+  assert.equal(slugs.length, expectedSlice.length,
+    `blog page ${pageNumber} has the wrong card count`);
+  actual.push(...slugs);
 
-console.log('Blog publication verification passed: metadata, neutral licensing copy, 32 unique chronological cards, and pagination.');
+  if (pageNumber > 1) {
+    const newerHref = pageNumber === 2 ? '/blog/' : `/blog/page/${pageNumber - 1}/`;
+    assert.match(source, new RegExp(`<a rel="prev" href="${newerHref}">`),
+      `blog page ${pageNumber} needs a link to newer articles`);
+  }
+  if (pageNumber < pageCount) {
+    assert.match(source, new RegExp(`<a rel="next" href="/blog/page/${pageNumber + 1}/">`),
+      `blog page ${pageNumber} needs a link to older articles`);
+  }
+}
+
+assert.equal(new Set(actual).size, expected.length,
+  'blog pages must not contain duplicate cards');
+assert.deepEqual(actual, expected,
+  'all blog pages together must expose every post in chronological order');
+
+console.log(`Blog publication verification passed: metadata, neutral licensing copy, ${expected.length} unique chronological cards across ${pageCount} pages.`);
