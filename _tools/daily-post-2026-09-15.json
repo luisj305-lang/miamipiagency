@@ -1,0 +1,95 @@
+[
+  {
+    "title": "Trade Secret Investigation Services: Response and Hiring Guide",
+    "slug": "trade-secret-investigation-services",
+    "description": "Learn how trade secret investigation services preserve digital evidence, examine insider activity, document leads, and support corporate counsel.",
+    "date": "2026-09-15",
+    "iso": "2026-09-15T09:30:00-04:00",
+    "image": "https://miamipiagency.com/wp-content/uploads/2026/09/trade-secret-investigation-services-hero.webp",
+    "header_image": "https://miamipiagency.com/wp-content/uploads/2026/09/trade-secret-investigation-services-hero.webp",
+    "image_width": 1600,
+    "image_height": 900,
+    "seo_primary_keyword": "trade secret investigation services",
+    "seo_search_intent": "Commercial and urgent incident-response intent: companies, corporate counsel, employment counsel, and outside litigation counsel are evaluating licensed investigative and digital-forensic support after suspected proprietary-data theft, insider misuse, or departing-employee activity.",
+    "seo_secondary_keywords": [
+      "trade secret theft investigation",
+      "trade secret investigator",
+      "trade secret misappropriation investigation",
+      "departing employee investigation",
+      "insider threat investigation",
+      "intellectual property theft investigation",
+      "data exfiltration investigation",
+      "digital forensics for trade secrets"
+    ],
+    "seo_questions": [
+      "Can you go to jail for stealing trade secrets?",
+      "What are the three requirements for a trade secret?",
+      "Can you be sued for trade secrets?",
+      "How do you investigate trade secret theft?",
+      "What should a company preserve after suspected data theft?"
+    ],
+    "seo_sources": [
+      {
+        "type": "Current Google U.S. search results",
+        "url": "https://www.google.com/search?q=trade+secret+investigation+services&hl=en&gl=us&pws=0",
+        "observation": "Verified September 15, 2026. Results included a paid corporate-investigation listing and organic law-firm, digital-forensics, and investigation-service pages addressing proprietary-data theft, insider threats, departing employees, preservation, and exfiltration. People Also Ask displayed questions about criminal consequences, trade-secret requirements, continuing protection, and lawsuits. These are intent signals, not volume figures."
+      },
+      {
+        "type": "Google autocomplete",
+        "url": "https://www.google.com/search?q=trade+secret+investigation+services&hl=en&gl=us&pws=0",
+        "observation": "Verified September 15, 2026. Relevant predictions included trade secret investigation and trade secrets dispute; several other predictions were unrelated. The exact service phrase was not among the visible predictions. Autocomplete indicates query patterns but does not establish volume, growth, or seasonality."
+      },
+      {
+        "type": "Google related-search review",
+        "url": "https://www.google.com/search?q=trade+secret+investigation+services&hl=en&gl=us&pws=0",
+        "observation": "Verified September 15, 2026. No distinct related-search block was visible in the reviewed results, so no related-search keyword claim is made."
+      },
+      {
+        "type": "Google Trends exact-term access check",
+        "url": "https://trends.google.com/trends/explore?geo=US&q=trade%20secret%20investigation%20services",
+        "observation": "Verified September 15, 2026 for U.S. web search over the prior 12 months. Google Trends reported insufficient data for the exact phrase across interest over time, related topics, and related searches. No volume, direction, breakout, or seasonality claim is made."
+      },
+      {
+        "type": "Google Trends broader-term context",
+        "url": "https://trends.google.com/trends/explore?geo=US&q=trade%20secret%20theft",
+        "observation": "Verified September 15, 2026 for U.S. web search over the prior 12 months. The broader phrase showed intermittent normalized weekly interest with many zero weeks and a 100 index for the week of July 5. Trends indices are relative, not search volume, and the sparse series does not support a directional or seasonal claim. Related searches had insufficient data."
+      },
+      {
+        "type": "Ranking-page review",
+        "url": "https://maryman.com/services/trade-secrets-investigation-services/",
+        "observation": "Reviewed a current Google-ranking service page focused on law firms and corporate legal teams, device and cloud forensics, access and transfer activity, timeline reconstruction, metadata, reporting, and testimony. Used only for intent and content-gap analysis, not legal authority."
+      },
+      {
+        "type": "Ranking-page review",
+        "url": "https://www.jsheld.com/areas-of-expertise/financial-investigations-valuation-risk/investigations-compliance-consulting/trade-secret-misappropriation",
+        "observation": "Reviewed a current Google-ranking page describing response to alleged trade-secret misappropriation and vulnerability assessment. Used only for intent and content-gap analysis, not legal authority."
+      },
+      {
+        "type": "Official USPTO trade-secret guidance",
+        "url": "https://www.uspto.gov/sites/default/files/documents/tradesecretsiptoolkit.pdf",
+        "observation": "The USPTO toolkit explains that reasonable protective efforts may include limiting access, confidentiality agreements, training, marking materials, physical and digital controls, and return or destruction of trade-secret material by departing employees."
+      },
+      {
+        "type": "Official NIST digital-evidence preservation guidance",
+        "url": "https://www.nist.gov/publications/digital-evidence-preservation-considerations-evidence-handlers",
+        "observation": "NIST IR 8387 explains that digital evidence presents unique preservation problems, that source and transfer information should be documented, and that hash values can help support integrity when stored separately."
+      },
+      {
+        "type": "Official NIST chain-of-custody definition",
+        "url": "https://csrc.nist.gov/glossary/term/chain_of_custody",
+        "observation": "NIST defines chain of custody as tracking evidence through collection, safeguarding, and analysis while documenting each handler, the date and time, and the purpose of transfer."
+      },
+      {
+        "type": "Official FBI trade-secret and insider-threat guidance",
+        "url": "https://www.fbi.gov/news/stories/how-to-spot-a-possible-insider-threat",
+        "observation": "The FBI identifies unauthorized copying or removal of proprietary material, use of removable media or personal email, unauthorized hardware or software, and competitor contacts as possible insider-threat indicators. The article treats them as red flags requiring verification, not proof."
+      },
+      {
+        "type": "Official Florida private-investigation licensing",
+        "url": "https://www.fdacs.gov/Business-Services/Private-Investigation-Licenses",
+        "observation": "FDACS states that it licenses and regulates private investigative firms and individuals in Florida under Chapter 493, Florida Statutes, and identifies Class A agency and individual investigator licensing classifications."
+      }
+    ],
+    "html": "<p><strong>Trade secret investigation services</strong> help companies and counsel respond when proprietary information may have been copied, transferred, disclosed, or used without authorization. The first objective is not to label an employee, vendor, or competitor guilty. It is to preserve volatile evidence, test competing explanations, and build a sourced chronology that counsel can evaluate.</p>\n<p>Move carefully. Locking an account may reduce further access, but wiping a laptop, opening a former employee's private account, or conducting an improvised interview can destroy evidence or create new legal problems. Corporate counsel, authorized IT personnel, HR, security, a licensed investigator, and a qualified digital forensic examiner should have distinct roles.</p>\n<h2>Trade Secret Investigation Services: What Can They Examine?</h2>\n<p>A focused trade secret theft investigation can combine lawful records review, interviews, open-source research, and authorized digital examination. Depending on the assignment, the work may include:</p>\n<ul>\n<li><strong>Access chronology:</strong> map logins, file access, downloads, permission changes, remote sessions, and relevant employment or contract events.</li>\n<li><strong>Transfer indicators:</strong> review authorized logs for removable media, personal email, cloud uploads, messaging platforms, print activity, or bulk synchronization.</li>\n<li><strong>Departing employee investigation:</strong> compare resignation timing, access patterns, return-of-property records, exit certifications, and known contacts with a new employer or business.</li>\n<li><strong>Witness interviews:</strong> document firsthand observations from supervisors, coworkers, IT staff, vendors, and custodians while separating fact from assumption.</li>\n<li><strong>Business intelligence:</strong> research public corporate records, websites, job postings, product claims, and relationships that may corroborate or contradict a theory.</li>\n<li><strong>Reporting:</strong> provide a source-indexed timeline that identifies verified facts, contrary evidence, limitations, and leads requiring formal discovery.</li>\n</ul>\n<p>A private investigator cannot hack an account, compel a provider to release records, seize a device, issue a subpoena, or promise that evidence will be admissible. Counsel should control legal holds, discovery, employee-law questions, privilege strategy, court filings, and communications with law enforcement.</p>\n<h2>How Do You Investigate Trade Secret Theft?</h2>\n<p>Begin with a narrow incident statement: what information is at issue, who had authorized access, what event triggered concern, and which dates or systems matter. Then define evidence that could support or refute the theory. A useful plan may compare access logs with travel, resignation, device assignment, badge activity, client contact, and public business events.</p>\n<p>Preservation comes before interpretation. The <a href=\"https://www.nist.gov/publications/digital-evidence-preservation-considerations-evidence-handlers\">National Institute of Standards and Technology</a> explains that digital evidence creates unique preservation problems and that source and transfer information should be documented. A qualified examiner may create authorized forensic images, calculate hash values, work from copies, and preserve acquisition notes. The <a href=\"https://csrc.nist.gov/glossary/term/chain_of_custody\">NIST chain-of-custody definition</a> also emphasizes documenting handlers, dates, times, and transfer purposes.</p>\n<h2>What Should a Company Preserve After Suspected Data Theft?</h2>\n<p>Preserve company-owned devices and removable media in their current state; relevant identity, endpoint, email, VPN, file-server, cloud, print, badge, and collaboration logs; account and permission histories; employment agreements and policies; confidentiality acknowledgments; device inventories; exit records; and the original alert or report. Retention periods may be short, so authorized teams should act promptly under counsel's direction.</p>\n<p>Do not browse through a device merely to see what is there, reset it for another employee, forward original emails without preserving metadata, or ask a suspect to explain before an interview plan exists. Do not access personal accounts or devices without lawful authority. Record who collected each item, when, from where, and how it was stored.</p>\n<h2>What Counts as a Trade Secret?</h2>\n<p>Google users ask about the requirements for trade-secret protection. The answer depends on applicable law and facts, so counsel must evaluate it. As general federal guidance, the <a href=\"https://www.uspto.gov/sites/default/files/documents/tradesecretsiptoolkit.pdf\">USPTO trade-secret toolkit</a> discusses information that derives value from not being generally known and reasonable efforts to keep it secret. Examples of protective efforts include limited access, confidentiality agreements, training, marked materials, physical and digital controls, and return or destruction procedures for departing employees.</p>\n<p>An investigator can document which measures existed and how people actually used them, but cannot decide the legal status of the information. That distinction matters: a valuable document is not automatically a trade secret, and a policy on paper may not describe real access practices.</p>\n<h2>Red Flags in an Insider Threat Investigation</h2>\n<p>Indicators should guide verification, not establish guilt. Possible signals include unusual bulk access outside normal duties; copying files shortly before resignation; use of unauthorized USB storage, personal email, or cloud accounts; new access to restricted folders; unexplained printing; deletion or wiping activity; inconsistent return-of-property records; or public signs of a competing product or customer approach.</p>\n<p>The <a href=\"https://www.fbi.gov/news/stories/how-to-spot-a-possible-insider-threat\">FBI's insider-threat guidance</a> also identifies unauthorized removal of proprietary material, removable media, personal email, unauthorized software or hardware, and competitor contacts as possible indicators. Any one event may have an innocent explanation. A defensible investigation tests context, authorization, reliability, and contrary evidence.</p>\n<h2>Can You Be Sued or Go to Jail for Stealing Trade Secrets?</h2>\n<p>These live Google questions require a careful answer. Trade-secret allegations can lead to civil claims or criminal investigations, but the applicable law, available remedies, required proof, and potential consequences depend on the jurisdiction and facts. Only courts and appropriate authorities determine liability or criminal consequences. A private investigator gathers facts; the investigator does not charge anyone, decide guilt, or provide legal advice. Companies and individuals should consult qualified counsel promptly.</p>\n<h2>Investigator, Digital Forensics, and Counsel: Different Roles</h2>\n<p>A trade secret investigator can develop witnesses, public-source facts, access context, timelines, and field intelligence. A qualified digital forensic examiner handles authorized device or data acquisition and technical analysis. Counsel defines the legal theory, controls formal process, and decides how the work should be structured. For related scopes, see <a href=\"https://miamipiagency.com/cyber-investigations/\">cyber investigations</a>, <a href=\"https://miamipiagency.com/employee-theft-investigation-services/\">employee theft investigations</a>, and <a href=\"https://miamipiagency.com/workplace-misconduct-investigation-services/\">workplace misconduct investigations</a>.</p>\n<p>If the concern centers on counterfeiting, trademark misuse, or product diversion rather than confidential data, review our <a href=\"https://miamipiagency.com/intellectual-property-investigation-services/\">intellectual property investigation services</a>. Attorney-directed matters may also require <a href=\"https://miamipiagency.com/litigation-support/\">litigation support</a>.</p>\n<h2>How Much Does a Trade Secret Misappropriation Investigation Cost?</h2>\n<p>Cost depends on the number of custodians and devices, data volume, log retention, cloud providers, jurisdictions, interview count, travel, urgency, expert involvement, and reporting needs. A phased scope is safer than an open-ended assignment: stabilize and preserve; perform a preliminary assessment; examine priority sources; interview selected witnesses; then decide whether deeper analysis is proportionate.</p>\n<p>Ask for rates, retainers, expense rules, approval thresholds, milestones, deliverables, and stopping points. No investigator should promise to prove theft, recover information, obtain an injunction, trigger prosecution, or win a case.</p>\n<h2>Questions to Ask Before Hiring</h2>\n<ul>\n<li>What exact hypothesis and date range will the first phase test?</li>\n<li>Which systems, devices, records, and witnesses are in scope, and who has lawful authority over them?</li>\n<li>Who performs digital acquisition, and how are provenance, hash values, and chain of custody recorded?</li>\n<li>How will the report distinguish facts, allegations, technical interpretations, contrary evidence, and limitations?</li>\n<li>What licensing applies wherever interviews, surveillance, or other fieldwork occurs?</li>\n<li>How will sensitive business information be minimized, transmitted, retained, and destroyed?</li>\n</ul>\n<p>Miami PI Agency is a licensed Florida private investigative agency. Fieldwork outside Florida is performed by investigators licensed in the state where the activity occurs. The <a href=\"https://www.fdacs.gov/Business-Services/Private-Investigation-Licenses\">Florida Department of Agriculture and Consumer Services</a> licenses and regulates private investigative agencies and investigators in Florida under Chapter 493.</p>\n<h2>Request a Confidential Trade Secret Case Assessment</h2>\n<p>Prepare a short incident chronology, the information at issue, key custodians, known devices and systems, relevant agreements, retention deadlines, and records you possess lawfully. Do not send passwords or the only copy of evidence. <a href=\"https://miamipiagency.com/contact-us/\">Request a confidential consultation</a> to define a focused first phase, the right investigative and forensic roles, timing, reporting, and budget. This article provides general information, not legal advice, and no investigative, legal, recovery, or enforcement outcome can be promised.</p>"
+  }
+]
